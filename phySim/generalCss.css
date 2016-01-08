@@ -1,0 +1,83 @@
+html {
+    height: 99.5%;
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    background-color: #FAFAFA;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+
+div {
+    border-style: none;
+    border-width: 1px;
+    border-color: #cccccc;
+}
+
+/*layout stuff*/
+div#controlConsole{
+    position: absolute;
+    right: 0px;
+    width: 30%;
+    height: 100%;
+    padding-bottom: 10%;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-style: none none none solid;
+    overflow-y: auto;
+}
+
+div#pageInfo{
+    font-family: 'Orbitron', sans-serif;
+    font-size: 100%;
+    z-index: 10;
+    border-style: solid none none none;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+}
+
+div.wrapper{
+    position: relative;
+    width: 100%;
+}
+
+div#controlButtons{
+    top: 20px;
+    height: 30%;
+    width: 100%;
+    padding: 0px 30px 20px 30px;
+    box-sizing: border-box;
+    border-style: none none solid none;
+}
+
+/*svg stuff*/
+.canvas {
+    position: absolute;
+    height: 100%;
+    width: 70%;
+}
+
+object, img#pausePlay{
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    max-height: 100%;
+}
+
+img#pausePlay{
+    max-width: 38%;
+    float: right;
+}
+
+object#clock{
+    max-width: 38%;
+    float: left;
+}

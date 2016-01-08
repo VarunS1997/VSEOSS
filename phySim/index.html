@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>PhySim</title>
+        <!-- ALPHA BUILD v0.3 -->
+
+        <!--vSCRIPTING -->
+        <script type="text/javascript">
+            //important constants
+            var time = true; //is time passing?
+            var spacialScale = 100; //100 is normal
+            var temporalScale = 1; //% of real time
+
+            var speedOfLight = 299792458; //source: google
+        </script>
+        <script type="text/javascript" src="physicsJS/particle.js"></script>
+
+        <!-- CSS AND FONTS -->
+        <link rel="stylesheet" type="text/css" href="generalCss.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id="controlConsole">
+            <div class="wrapper" id="controlButtons">
+                <img id="pausePlay" src="pause.svg" alt="Failed to load image"/>
+                
+                <object id="clock" data="clock.svg" type="image/svg+xml"></object>
+            </div>
+            <div id="pageInfo" class="wrapper tk-jaf-mashine" style="visibility: hidden">
+                PhySim<br/>
+                A Varun Singh Educational <br/> Open-Source Project <br/>
+                ALPHA V0.4
+            </div>
+            <script type="text/javascript">
+                setTimeout(function(){document.getElementById("pageInfo").style.visibility = "visible";}, 100);
+            </script>
+        </div>
+        <svg id="particleCanvas" class="canvas" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <circle cx="50%" cy="50%" r="10" fill="red"/>
+            <circle cx="50%" cy="50%" r="10" fill="blue" />
+            <circle cx="50%" cy="50%" r="10" fill="green" />
+            <circle cx="50%" cy="50%" r="10" fill="orange" />
+        </svg>
+        <script type="text/javascript">
+            //physics
+            //make particle instances
+            var svgE = document.getElementById("particleCanvas").childNodes;
+
+            var count = 4; //number of particles
+            var particles = [count];
+            
+            //create particles and apply initial conditions
+            for (var i = 0; i < count; i++) {
+                var particle1 = new Particle(1, 0, 0, svgE[1 + 2 * i]);
+                particle1.applyForce(0, -1);
+                particle1.setVelocity((Math.random() - .5) * 100, 0);
+                particles[i] = particle1;
+            }
+
+            //time-related
+            var ticker = setInterval(timePass, 6); //6 ms because it increases animation fluidity
+            var ready = false; //ready to pass time?
+            var rad = Math.PI / 2; //angle of clock hand
+            var radius; //radius of clock
+            var clock = document.getElementById("clock"); //clock hand
+
+            clock.onload = function () {
+                clock = clock.contentDocument.getElementById("tick");
+                if (radius == null) { //placed here to ensure clock is loaded correctly
+                    ready = true;
+                    radius = 250;
+                }
+            };
+
+            function timePass() {
+                if (time && ready) {
+                    ready = false;
+
+                    //cause passage of time
+                    for (var i = 0; i < particles.length; i++) {
+                        particles[i].next();
+                    }
+
+                    //clock math
+                    clock.setAttribute("x2", 255.5 + radius * Math.cos(rad));
+                    clock.setAttribute("y2", 255 - radius * Math.sin(rad));
+
+                    rad -= (Math.PI / 7200) * temporalScale;
+
+                    ready = true;
+                }
+            }
+
+            function pausePlay() {
+                if (time) {
+                    pausePlayer.setAttribute("src", "play.svg");
+                } else {
+                    pausePlayer.setAttribute("src", "pause.svg");
+                }
+                time = !time; //toggle time
+            }
+
+            //UI stuff
+            var pausePlayer = document.getElementById("pausePlay");
+
+            pausePlayer.addEventListener("click", pausePlay);
+    </script>
+    </body>
+</html>
