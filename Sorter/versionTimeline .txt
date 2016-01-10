@@ -1,0 +1,29 @@
+===========
+=  Alpha  =
+===========
+
+V0.8:
+-Customization options
+
+V0.7:
+-Finalized UI layout
+
+V0.6:
+-Merge Sort
+
+V0.5:
+-Heap Sort
+
+V0.4:
+-Quick Sort
+
+V0.3:
+-Shaker/Cocktail Sort
+
+V0.2: WORKING
+-Bubble Sort
+
+V0.1: RELEASED
+-JS Framework
+-Insertion Sort
+-Basic Debug-based UI

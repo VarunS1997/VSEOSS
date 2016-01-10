@@ -34,7 +34,6 @@ div#controlConsole{
 
 div#pageInfo{
     font-family: 'Orbitron', sans-serif;
-    font-size: 100%;
     z-index: 10;
     border-style: solid none none none;
     padding: 10px 20px;
