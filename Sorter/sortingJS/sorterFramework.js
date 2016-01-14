@@ -3,7 +3,7 @@
 //
 var timer;
 var time; //when to continue 
-var speed = 100;
+var speed = 500;
 var paused = true; //not ready yet
 
 var size = 15;
@@ -13,7 +13,7 @@ var n1; //primary node pointer
 var n2; //secondary node pointer
 var auxn; //auxillary node pointer
 
-var algorithm = new InsertionSort(); //set to sorting algorithm's class 
+var algorithm = new BubbleSort(); //set to sorting algorithm's class 
 var sort = function () { algorithm.takeStep() ;}; //reference pointer to algorithm stepper 
 
 //
@@ -21,6 +21,8 @@ var sort = function () { algorithm.takeStep() ;}; //reference pointer to algorit
 //
 function init() {
     paused = false;
+    n1 = 0;
+    n2 = 1;
 
     //this order because each of these inits needs the previous done
     initDisplay();
@@ -40,7 +42,9 @@ function init() {
 
             displayHTML += "<rect width='" + boxWidth + "%' ";
             displayHTML += "height='" + boxHeight + "%' ";
-            displayHTML += "style='fill:none; stroke: rgba(125, 200, 255, 1); stroke-width:1px' ";
+            displayHTML += "style='fill:none; ";
+            displayHTML += "stroke: rgba(125, 200, 255, 1); ";
+            displayHTML += "stroke-width: 3px' ";
             displayHTML += "x='" + (i*boxWidth) +"%' ";
             displayHTML += "y='" + (100 - boxHeight) + "%'/>";
         }
@@ -89,9 +93,7 @@ function init() {
 //
 function swap(x, y, primaries) {
     if (primaries) {
-        var n1n = n1;
-        n1 = n2;
-        n2 = n1n;
+        modifyPrimaries(n2-n1, n1-n2); //swap for visual aesthetics
     }
 
     var z = data[x];
@@ -104,4 +106,16 @@ function swap(x, y, primaries) {
     svgE[data[y]-1].setAttribute("x",(y*(100/size)) + "%");
 
     document.getElementById("dataFeed").innerHTML = data;
+}
+
+function modifyPrimaries(n1Mod, n2Mod){
+    svgE = document.getElementById("dataDisplay").childNodes;
+    svgE[data[n1] - 1].style.stroke = "rgba(125, 200, 255, 1)";
+    svgE[data[n2] - 1].style.stroke = "rgba(125, 200, 255, 1)";
+
+    n1 = n1 + n1Mod;
+    n2 = n2 + n2Mod;
+
+    svgE[data[n1] - 1].style.stroke = "rgba(75, 255, 75, 1)";
+    svgE[data[n2] - 1].style.stroke = "rgba(75, 255, 75, 1)";
 }
