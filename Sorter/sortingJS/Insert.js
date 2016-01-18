@@ -17,14 +17,14 @@ InsertionSort.prototype.isDone = function(){
 };
 
 InsertionSort.prototype.takeStep = function () {
-    if (this.phase == 1) {
+    if (this.phase == 0) {
         this.setComparision();
-        this.phase = 2;
-    } else if (this.phase == 2) {
+        this.phase = 1;
+    } else if (this.phase == 1) {
         this.calculateSwap();
-        this.phase = 1;
+        this.phase = 0;
     } else {
-        this.phase = 1;
+        this.phase = 0;
     }
 };
 

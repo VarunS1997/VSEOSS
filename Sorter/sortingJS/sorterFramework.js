@@ -29,6 +29,9 @@ function init() {
     initData();
     initTimer();
 
+    //color
+    modifyPrimaries(0, 0);
+
     //
     //initialization supplementary functions
     //
@@ -91,11 +94,7 @@ function init() {
 //
 //important universal methods
 //
-function swap(x, y, primaries) {
-    if (primaries) {
-        modifyPrimaries(n2-n1, n1-n2); //swap for visual aesthetics
-    }
-
+function swap(x, y) {
     var z = data[x];
     data[x] = data[y];
     data[y] = z;
@@ -108,6 +107,7 @@ function swap(x, y, primaries) {
     document.getElementById("dataFeed").innerHTML = data;
 }
 
+//only use if compared boxes have changed
 function modifyPrimaries(n1Mod, n2Mod){
     svgE = document.getElementById("dataDisplay").childNodes;
     svgE[data[n1] - 1].style.stroke = "rgba(125, 200, 255, 1)";
@@ -116,6 +116,6 @@ function modifyPrimaries(n1Mod, n2Mod){
     n1 = n1 + n1Mod;
     n2 = n2 + n2Mod;
 
-    svgE[data[n1] - 1].style.stroke = "rgba(75, 255, 75, 1)";
+    svgE[data[n1] - 1].style.stroke = "rgba(255, 75, 75, 1)";
     svgE[data[n2] - 1].style.stroke = "rgba(75, 255, 75, 1)";
 }
