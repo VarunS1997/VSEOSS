@@ -13,7 +13,7 @@ var n1; //primary node pointer
 var n2; //secondary node pointer
 var auxn; //auxillary node pointer
 
-var algorithm = new BubbleSort(); //set to sorting algorithm's class 
+var algorithm = new InsertionSort(); //set to sorting algorithm's class 
 var sort = function () { algorithm.takeStep() ;}; //reference pointer to algorithm stepper 
 
 //
