@@ -16,7 +16,6 @@ CocktailSort.prototype.isDone = function () {
 };
 
 CocktailSort.prototype.takeStep = function () {
-    console.log(n1 + " " + n2 + " " + this.upEdge + " " + this.lowEdge + " " + this.phase);
     if (this.phase == 0) {
         this.setComparision();
         this.phase = 1;
