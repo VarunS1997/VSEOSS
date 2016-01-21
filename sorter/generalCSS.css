@@ -20,6 +20,14 @@ div {
     border-color: rgba(125, 200, 255, 1);
 }
 
+a{
+    color: inherit;
+}
+
+a:hover{
+    color: inherit;
+}
+
 /*specific css*/
 div#controlConsole{
     position: absolute;

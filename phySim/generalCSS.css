@@ -19,6 +19,14 @@ div {
     border-color: #cccccc;
 }
 
+a{
+    color: inherit;
+}
+
+a:hover{
+    color: inherit;
+}
+
 /*layout stuff*/
 div#controlConsole{
     position: absolute;

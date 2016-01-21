@@ -1,4 +1,3 @@
-
 var BubbleSort = function () {
     this.done = false;
 
@@ -6,11 +5,11 @@ var BubbleSort = function () {
     this.phase = 1;
 
     //assumed that n1 == 0 && n2 == 1 as per init
-}
+};
 
 BubbleSort.prototype.isDone = function () {
     return this.done;
-}
+};
 
 BubbleSort.prototype.takeStep = function () {
     if (this.phase == 0) {
@@ -22,7 +21,7 @@ BubbleSort.prototype.takeStep = function () {
     } else {
         this.phase = 0;
     }
-}
+};
 
 BubbleSort.prototype.setComparision = function () {
     if (this.edge == 0) {
@@ -34,10 +33,10 @@ BubbleSort.prototype.setComparision = function () {
     } else {
         modifyPrimaries(1, 1);
     }
-}
+};
 
 BubbleSort.prototype.calculateSwap = function () {
     if (data[n1] > data[n2]) {
         swap(n1, n2);
     }
-}
+};

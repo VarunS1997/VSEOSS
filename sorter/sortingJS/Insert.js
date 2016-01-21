@@ -1,4 +1,3 @@
-
 var InsertionSort = function () {
     this.done = false;
 
@@ -15,7 +14,6 @@ InsertionSort.prototype.isDone = function(){
 };
 
 InsertionSort.prototype.takeStep = function () {
-    console.log(n1 + " " + n2 + " " + this.edge);
     if (this.phase == 0) {
         this.setComparision();
         this.phase = 1;
@@ -27,7 +25,6 @@ InsertionSort.prototype.takeStep = function () {
     }
 };
 
-//fix these
 InsertionSort.prototype.setComparision = function () {
     if (n1 >= 1) {
         modifyPrimaries(-1, -1);

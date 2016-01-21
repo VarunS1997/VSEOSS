@@ -3,7 +3,7 @@
 //
 var timer;
 var time; //when to continue 
-var speed = 500;
+var speed = 400;
 var paused = true; //not ready yet
 
 var size = 15;
@@ -13,7 +13,7 @@ var n1; //primary node pointer
 var n2; //secondary node pointer
 var auxn; //auxillary node pointer
 
-var algorithm = new InsertionSort(); //set to sorting algorithm's class 
+var algorithm = new CocktailSort(); //set to sorting algorithm's class 
 var sort = function () { algorithm.takeStep() ;}; //reference pointer to algorithm stepper 
 
 //
@@ -23,6 +23,11 @@ function init() {
     paused = false;
     n1 = 0;
     n2 = 1;
+    auxn = -1;
+
+    if(timer){
+        clearInterval(timer);
+    }
 
     //this order because each of these inits needs the previous done
     initDisplay();
@@ -118,4 +123,22 @@ function modifyPrimaries(n1Mod, n2Mod){
 
     svgE[data[n1] - 1].style.stroke = "rgba(255, 75, 75, 1)";
     svgE[data[n2] - 1].style.stroke = "rgba(75, 255, 75, 1)";
+}
+
+
+//
+// User I/O Functions
+//
+
+function changeAlgorithm(str){
+    str = str.toLowerCase();
+    if(str == "insertion" && !(algorithm instanceof InsertionSort)){
+        paused = true;
+        algorithm = new InsertionSort();
+        init();
+    } else if(str == "bubble" && !(algorithm instanceof BubbleSort)){
+        paused = true;
+        algorithm = new BubbleSort();
+        init();
+    }
 }
