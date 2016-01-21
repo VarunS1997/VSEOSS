@@ -14,14 +14,18 @@ V0.6:
 V0.5:
 -Heap Sort
 
-V0.4:
+V0.4: WORKING
 -Quick Sort
 
-V0.3:
+V0.3: COMPLETE
 -Shaker/Cocktail Sort
+-Color UI implementation
+-Framework enhancements for future Customization UI (Aplha V0.8)
 
-V0.2: WORKING
+V0.2: COMPLETE
 -Bubble Sort
+-Basic UI Implementation between projects
+-Heroku deploy
 
 V0.1: COMPLETE
 -JS Framework
