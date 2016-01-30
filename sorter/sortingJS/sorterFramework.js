@@ -14,7 +14,7 @@ var n2; //secondary node pointer
 var auxn; //auxillary node pointer
 
 var algorithm = new CocktailSort(); //set to sorting algorithm's class 
-var sort = function () { algorithm.takeStep() ;}; //reference pointer to algorithm stepper 
+var sort = function () { algorithm.takeStep(); }; //reference pointer to algorithm stepper 
 
 //
 //initializations
@@ -25,7 +25,13 @@ function init() {
     n2 = 1;
     auxn = -1;
 
-    if(timer){
+    var s = new Stack();
+    for (var i = 0; i < 10; i++) {
+        s.push(i);
+    }
+    console.log(s.peek());
+
+    if (timer) {
         clearInterval(timer);
     }
 
@@ -43,9 +49,9 @@ function init() {
     function initDisplay() {
         displayHTML = "";
 
-        for(var i = 0; i < size; i++){
+        for (var i = 0; i < size; i++) {
             //both of these in percents
-            var boxHeight = ((i+1) * 100 / size) - .5;
+            var boxHeight = ((i + 1) * 100 / size) - .5;
             var boxWidth = (100 / size);
 
             displayHTML += "<rect width='" + boxWidth + "%' ";
@@ -53,7 +59,7 @@ function init() {
             displayHTML += "style='fill:none; ";
             displayHTML += "stroke: rgba(125, 200, 255, 1); ";
             displayHTML += "stroke-width: 3px' ";
-            displayHTML += "x='" + (i*boxWidth) +"%' ";
+            displayHTML += "x='" + (i * boxWidth) + "%' ";
             displayHTML += "y='" + (100 - boxHeight) + "%'/>";
         }
 
@@ -64,7 +70,7 @@ function init() {
         data = new Array(size);
 
         for (var i = 0; i < data.length; i++) {
-            data[i] = i+1; //makes it so value is box number + 1
+            data[i] = i + 1; //makes it so value is box number + 1
         }
 
         for (var i = 0; i < data.length * 2; i++) {
@@ -91,7 +97,7 @@ function init() {
         }, 10)
     }
 
-    function endTimer(){
+    function endTimer() {
         window.clearInterval(timer);
     }
 }
@@ -105,15 +111,15 @@ function swap(x, y) {
     data[y] = z;
 
     //display stuff
-    svgE = document.getElementById("dataDisplay").childNodes;//use converted data indices due to switch (x <-> y) on right side
-    svgE[data[x]-1].setAttribute("x",(x*(100/size)) + "%");
-    svgE[data[y]-1].setAttribute("x",(y*(100/size)) + "%");
+    svgE = document.getElementById("dataDisplay").childNodes; //use converted data indices due to switch (x <-> y) on right side
+    svgE[data[x] - 1].setAttribute("x", (x * (100 / size)) + "%");
+    svgE[data[y] - 1].setAttribute("x", (y * (100 / size)) + "%");
 
     document.getElementById("dataFeed").innerHTML = data;
 }
 
 //only use if compared boxes have changed
-function modifyPrimaries(n1Mod, n2Mod){
+function modifyPrimaries(n1Mod, n2Mod) {
     svgE = document.getElementById("dataDisplay").childNodes;
     svgE[data[n1] - 1].style.stroke = "rgba(125, 200, 255, 1)";
     svgE[data[n2] - 1].style.stroke = "rgba(125, 200, 255, 1)";
@@ -130,13 +136,13 @@ function modifyPrimaries(n1Mod, n2Mod){
 // User I/O Functions
 //
 
-function changeAlgorithm(str){
+function changeAlgorithm(str) {
     str = str.toLowerCase();
-    if(str == "insertion" && !(algorithm instanceof InsertionSort)){
+    if (str == "insertion" && !(algorithm instanceof InsertionSort)) {
         paused = true;
         algorithm = new InsertionSort();
         init();
-    } else if(str == "bubble" && !(algorithm instanceof BubbleSort)){
+    } else if (str == "bubble" && !(algorithm instanceof BubbleSort)) {
         paused = true;
         algorithm = new BubbleSort();
         init();

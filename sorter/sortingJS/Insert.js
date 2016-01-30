@@ -9,7 +9,7 @@ var InsertionSort = function () {
     //assume n1 == 0 and n2 == 1 due to loop invariant
 };
 
-InsertionSort.prototype.isDone = function(){
+InsertionSort.prototype.isDone = function () {
     return this.done;
 };
 
@@ -36,7 +36,7 @@ InsertionSort.prototype.setComparision = function () {
             return;
         }
 
-        modifyPrimaries(-n1 + this.edge -1, -n2 + this.edge);
+        modifyPrimaries(-n1 + this.edge - 1, -n2 + this.edge);
     }
 };
 

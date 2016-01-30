@@ -16,6 +16,7 @@ V0.5:
 
 V0.4: WORKING
 -Quick Sort
+-Framework improvements (implementation of Stack)
 
 V0.3: COMPLETE
 -Shaker/Cocktail Sort
