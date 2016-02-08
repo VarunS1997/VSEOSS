@@ -13,7 +13,7 @@ var QuickSort = function () {
 
 QuickSort.prototype.splitStackNode = function (index) {
     var oldNode = this.recursionStack.pop();
-    
+
     //new "recursion nodes", excluding index of split (it's in final position)
     this.recursionStack.push([index + 1, oldNode[1]]);
     this.recursionStack.push([oldNode[0], index - 1]);
@@ -25,7 +25,6 @@ QuickSort.prototype.isDone = function () {
 
 QuickSort.prototype.takeStep = function () {
     if (this.phase == 0) {
-        console.log(this.recursionStack);
         this.setPivot();
         this.phase = 1;
     } else if (this.phase == 1) {
@@ -37,15 +36,8 @@ QuickSort.prototype.takeStep = function () {
 };
 
 QuickSort.prototype.setPivot = function () {
-    if (auxn != -1 && this.checkCompletion) {
-        return;
-    }
-
-    console.log("setting pivot");
     modifyPrimaries(this.recursionStack.peek()[0] - n1, -n2 + this.recursionStack.peek()[1] - 1);
-    console.log(n1 + " , " + n2 + " , " + auxn);
     modifyAux(this.recursionStack.peek()[1] - auxn);
-    console.log(n1 + " , " + n2 + " , " + auxn);
 };
 
 //this is only non-"takeStep" function that can change phase 1 to 2 to simulate loop iteration through array
@@ -64,7 +56,7 @@ QuickSort.prototype.partitionStep = function () {
         if (data[auxn] < data[n1]) {
             modifyPrimaries(0, -n2 + n1 + 1);
         } else {
-            modifyPrimaries(1, -n2 + n1);
+            modifyPrimaries(1, -n2 + n1 + 2);
         }
 
         this.phase = 2;
@@ -76,16 +68,18 @@ QuickSort.prototype.prepareNextRecursion = function () {
     this.splitStackNode(n1);
 
     var nextRecursion = this.recursionStack.peek();
-    while (nextRecursion[1] - nextRecursion[0] < 3) {
-        if(nextRecursion[1] - nextRecursion[0] == 2){
-            //do a two element swap if needed
+    while (nextRecursion == null || nextRecursion[1] - nextRecursion[0] < 2) { //3 elements, minimum size
+        if (nextRecursion[1] - nextRecursion[0] == 1) { //two elements
+            if (data[nextRecursion[1]] < data[nextRecursion[0]]) {
+                modifyPrimaries(-n1 + nextRecursion[1], -n2 + nextRecursion[0]);
+                swap(n1, n2);
+            }
         }
-
         this.recursionStack.pop();
         nextRecursion = this.recursionStack.peek();
 
-        if (this.checkCompletion) {
-            return true;
+        if (this.checkCompletion()) {
+            return;
         }
     }
 }

@@ -6,14 +6,14 @@ var time; //when to continue
 var speed = 400;
 var paused = true; //not ready yet
 
-var size = 10;
+var size = 20;
 var data; //intended to be "linked" to a visual data representation
 
 var n1; //primary node pointer
 var n2; //secondary node pointer
 var auxn; //auxillary node pointer
 
-var algorithm = new CocktailSort(); //set to sorting algorithm's class 
+var algorithm = new QuickSort(); //set to sorting algorithm's class 
 var sort = function () { algorithm.takeStep(); }; //reference pointer to algorithm stepper 
 
 //
@@ -58,7 +58,7 @@ function init() {
             displayHTML += "height='" + boxHeight + "%' ";
             displayHTML += "style='fill:none; ";
             displayHTML += "stroke: rgba(125, 200, 255, 1); ";
-            displayHTML += "stroke-width: 3px' ";
+            displayHTML += "stroke-width: "+ (3 - Math.floor(size/150)) + "px' ";
             displayHTML += "x='" + (i * boxWidth) + "%' ";
             displayHTML += "y='" + (100 - boxHeight) + "%'/>";
         }
@@ -107,6 +107,10 @@ function init() {
 //important universal methods
 //
 function swap(x, y) {
+    if(x == y){
+        return;
+    }
+
     var z = data[x];
     data[x] = data[y];
     data[y] = z;
@@ -116,20 +120,32 @@ function swap(x, y) {
     svgE[data[x] - 1].setAttribute("x", (x * (100 / size)) + "%");
     svgE[data[y] - 1].setAttribute("x", (y * (100 / size)) + "%");
 
-    document.getElementById("dataFeed").innerHTML = data;
+    var numberFeed = "";
+    for(var i = 0; i < data.length; i++){
+        numberFeed += data[i] + " | ";
+    }
+    document.getElementById('dataFeed').innerHTML = numberFeed;
 }
 
 //only use if compared boxes have changed
 function modifyPrimaries(n1Mod, n2Mod) {
     svgE = document.getElementById("dataDisplay").childNodes;
-    svgE[data[n1] - 1].style.stroke = "rgba(125, 200, 255, 1)";
-    svgE[data[n2] - 1].style.stroke = "rgba(125, 200, 255, 1)";
+    if (n1 <= size - 1) {
+        svgE[data[n1] - 1].style.stroke = "rgba(125, 200, 255, 1)";
+    }
+    if (n2 <= size - 1) {
+        svgE[data[n2] - 1].style.stroke = "rgba(125, 200, 255, 1)";
+    }
 
     n1 = n1 + n1Mod;
     n2 = n2 + n2Mod;
+    if(n1 <= size - 1){
+        svgE[data[n1] - 1].style.stroke = "rgba(255, 75, 75, 1)";   
+    }
 
-    svgE[data[n1] - 1].style.stroke = "rgba(255, 75, 75, 1)";
-    svgE[data[n2] - 1].style.stroke = "rgba(75, 255, 75, 1)";
+    if(n2 <= size - 1){
+        svgE[data[n2] - 1].style.stroke = "rgba(75, 255, 75, 1)";   
+    }
 }
 
 function modifyAux(auxMod){
@@ -158,6 +174,14 @@ function changeAlgorithm(str) {
     } else if (str == "bubble" && !(algorithm instanceof BubbleSort)) {
         paused = true;
         algorithm = new BubbleSort();
+        init();
+    } else if (str == "cocktail" && !(algorithm instanceof CocktailSort)) {
+        paused = true;
+        algorithm = new CocktailSort();
+        init();
+    } else if (str == "quick" && !(algorithm instanceof QuickSort)) {
+        paused = true;
+        algorithm = new QuickSort();
         init();
     }
 }

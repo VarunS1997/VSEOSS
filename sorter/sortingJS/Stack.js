@@ -22,7 +22,11 @@ Stack.prototype.pop = function () {
 };
 
 Stack.prototype.peek = function () {
-    return this.first.dataArray;
+    if (this.first == null) {
+        return null;
+    } else {
+        return this.first.dataArray;
+    }
 }
 
 //node-based implementation requires basic "Node" nested class primarily for OOP cleanliness and performance gains due to this project's conventions
