@@ -6,7 +6,7 @@ var InsertionSort = function () {
 
     this.swapped = false;
 
-    //assume n1 == 0 and n2 == 1 due to loop invariant
+    //assume n1 == 0 and n2 == 1 due to init
 };
 
 InsertionSort.prototype.isDone = function () {

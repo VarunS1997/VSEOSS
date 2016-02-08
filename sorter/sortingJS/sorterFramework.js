@@ -6,8 +6,8 @@ var time; //when to continue
 var speed = 400;
 var paused = true; //not ready yet
 
-var size = 15;
-var data;
+var size = 10;
+var data; //intended to be "linked" to a visual data representation
 
 var n1; //primary node pointer
 var n2; //secondary node pointer
@@ -73,6 +73,7 @@ function init() {
             data[i] = i + 1; //makes it so value is box number + 1
         }
 
+        //randomize
         for (var i = 0; i < data.length * 2; i++) {
             var x = Math.trunc(Math.random() * size);
             var y = Math.trunc(Math.random() * size);
@@ -111,7 +112,7 @@ function swap(x, y) {
     data[y] = z;
 
     //display stuff
-    svgE = document.getElementById("dataDisplay").childNodes; //use converted data indices due to switch (x <-> y) on right side
+    svgE = document.getElementById("dataDisplay").childNodes; //use original data indices due to switch (x <-> y) on right side
     svgE[data[x] - 1].setAttribute("x", (x * (100 / size)) + "%");
     svgE[data[y] - 1].setAttribute("x", (y * (100 / size)) + "%");
 
@@ -131,6 +132,18 @@ function modifyPrimaries(n1Mod, n2Mod) {
     svgE[data[n2] - 1].style.stroke = "rgba(75, 255, 75, 1)";
 }
 
+function modifyAux(auxMod){
+    svgE = document.getElementById("dataDisplay").childNodes;
+    if(auxn > 0){
+        svgE[data[auxn] - 1].style.stroke = "rgba(125, 200, 255, 1)";
+    }
+
+    auxn = auxn + auxMod;
+
+    if (auxn > 0) {
+        svgE[data[auxn] - 1].style.stroke = "rgba(255, 255, 75, 1)";
+    }
+}
 
 //
 // User I/O Functions

@@ -12,6 +12,7 @@ Stack.prototype.push = function (dataArray) {
 
 Stack.prototype.pop = function () {
     if (this.isEmpty()) {
+        console.log("Attempted illegal pop");
         return false;
     }
 
@@ -24,7 +25,7 @@ Stack.prototype.peek = function () {
     return this.first.dataArray;
 }
 
-//node-based implementation requires basic "Node" nested class primarily for OOP cleanliness and loading reduction due to this project's conventions
+//node-based implementation requires basic "Node" nested class primarily for OOP cleanliness and performance gains due to this project's conventions
 Stack.prototype.Node = function (dataArray, next) {
     this.dataArray = dataArray; //just data
 
