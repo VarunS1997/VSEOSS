@@ -24,7 +24,9 @@ function init() {
     n1 = 0;
     n2 = 1;
     auxn = -1;
+
     document.getElementById("speedInput").setAttribute("value", speed);
+    document.getElementById("sizeInput").setAttribute("value", dataSize);
 
     if (timer) {
         endTimer();
@@ -178,6 +180,32 @@ function changeAlgorithm(str) {
         init();
     } else if (str == "heap" && !(algorithm instanceof HeapSort)) {
         paused = true;
+        algorithm = new HeapSort();
+        init();
+    }
+}
+
+function changeSize(n){
+    if(n == dataSize){
+        return;
+    }
+
+    paused = true;
+    dataSize = n;
+
+    if (algorithm instanceof InsertionSort) {
+        algorithm = new InsertionSort();
+        init();
+    } else if (algorithm instanceof BubbleSort) {
+        algorithm = new BubbleSort();
+        init();
+    } else if (algorithm instanceof CocktailSort) {
+        algorithm = new CocktailSort();
+        init();
+    } else if (algorithm instanceof QuickSort) {
+        algorithm = new QuickSort();
+        init();
+    } else if (algorithm instanceof HeapSort) {
         algorithm = new HeapSort();
         init();
     }

@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Sorter</title>
+        <title>VSEOSS | Sorter</title>
         <!--ALPHA BUILD V0.5-->
 
         <!--CSS/FONT-->
@@ -29,9 +29,13 @@
                 <input type="radio" name="sort" onclick="changeAlgorithm('cocktail')">Cocktail/Shaker Sort<br/>
                 <input type="radio" name="sort" onclick="changeAlgorithm('quick')">Quick Sort<br/>
                 <input type="radio" name="sort" onclick="changeAlgorithm('Heap')" checked="checked">Heap Sort<br/>
-
-                <br/>Speed (ms):</br>
+                <br/>
+                Speed (ms):</br>
                 <input id="speedInput" type="number" min="0" oninput="speed = parseInt(this.value)"/>
+                <br/>
+                <br/>
+                Number of Elements:</br>
+                <input id="sizeInput" type="number" min="0" onchange="changeSize(this.value)"/>
             </span>
             <div id="pageInfo" class="wrapper" style="visibility: visible">
                 Sorter<br />
