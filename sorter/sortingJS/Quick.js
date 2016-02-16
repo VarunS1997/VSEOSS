@@ -4,7 +4,7 @@ var QuickSort = function () {
     this.phase = 0;
 
     this.recursionStack = new Stack(); //a stack to simulate recursion; contains indices
-    this.recursionStack.push([0, size - 1]); //the stack will contain the start and end of each recursion in a 2 element array
+    this.recursionStack.push([0, dataSize - 1]); //the stack will contain the start and end of each recursion in a 2 element array
 
     //assumed that n1 == 0 && n2 == 1 && auxn == -1 as per init
     //n1 will be lower half index
@@ -68,7 +68,7 @@ QuickSort.prototype.prepareNextRecursion = function () {
     this.splitStackNode(n1);
 
     var nextRecursion = this.recursionStack.peek();
-    while (nextRecursion == null || nextRecursion[1] - nextRecursion[0] < 2) { //3 elements, minimum size
+    while (nextRecursion == null || nextRecursion[1] - nextRecursion[0] < 2) { //3 elements, minimum dataSize
         if (nextRecursion[1] - nextRecursion[0] == 1) { //two elements
             if (data[nextRecursion[1]] < data[nextRecursion[0]]) {
                 modifyPrimaries(-n1 + nextRecursion[1], -n2 + nextRecursion[0]);

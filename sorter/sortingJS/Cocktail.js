@@ -1,7 +1,7 @@
 var CocktailSort = function () {
     this.done = false;
 
-    this.upEdge = size - 1;
+    this.upEdge = dataSize - 1;
     this.lowEdge = 0;
 
     this.goingUp = true;

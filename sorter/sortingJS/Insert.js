@@ -31,7 +31,7 @@ InsertionSort.prototype.setComparision = function () {
     } else {
         this.edge++;
 
-        if (this.edge == data.length) {
+        if (this.edge == dataSize) {
             this.done = true;
             return;
         }

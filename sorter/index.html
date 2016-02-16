@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Sorter</title>
-        <!--ALPHA BUILD V0.4-->
+        <!--ALPHA BUILD V0.5-->
 
         <!--CSS/FONT-->
         <link rel="stylesheet" type="text/css" href="generalCSS.css" />
@@ -14,19 +14,30 @@
         <script src="sortingJS/Bubble.js"></script>
         <script src="sortingJS/Cocktail.js"></script>
         <script src="sortingJS/Quick.js"></script>
+        <script src="sortingJS/Heap.js"></script>
+        <script src="sortingJS/Merge.js"></script>
+
         <script src="sortingJS/Stack.js"></script>
         <script src="sortingJS/sorterFramework.js"></script>
     </head>
     <body onload="init();">
-        <svg id="dataDisplay">
-
-        </svg>
+        <svg id="dataDisplay"></svg>
         <div id="controlConsole">
-            <span id="dataFeed">Initializing....</span>
+            <span id="dataFeed">
+                <input type="radio" name="sort" onclick="changeAlgorithm('insertion')">Insertion Sort<br/>
+                <input type="radio" name="sort" onclick="changeAlgorithm('bubble')">Bubble Sort<br/>
+                <input type="radio" name="sort" onclick="changeAlgorithm('cocktail')">Cocktail/Shaker Sort<br/>
+                <input type="radio" name="sort" onclick="changeAlgorithm('quick')">Quick Sort<br/>
+                <input type="radio" name="sort" onclick="changeAlgorithm('Heap')" checked="checked">Heap Sort<br/>
+
+                <br/>Speed:</br>
+                <input type="number" min="0" oninput="speed = parseInt(this.value)"/>
+            </span>
             <div id="pageInfo" class="wrapper" style="visibility: visible">
                 Sorter<br />
                 <a href="../">VSEOSS</a> <br />
-                ALPHA V0.4
+                <a href="https://github.com/VarunS1997/VSEOSS" target="_blank">Github Repository</a><br />
+                ALPHA V0.5
             </div>
         </div>
     </body>

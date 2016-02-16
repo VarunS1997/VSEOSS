@@ -1,24 +1,24 @@
 ===========
 =  Alpha  =
 ===========
-
 V0.8:
 -Customization options
 
 V0.7:
 -Finalized UI layout
 
-V0.6:
+V0.6: IN PROGRESS
 -Merge Sort
 
-V0.5: WORKING
+V0.5: COMPLETE
 -Heap Sort
+-Basic UI implementation
 
 V0.4: COMPLETE
 -Quick Sort
 -Framework improvements (implementation of Stack and minor Error checking)
 Notes:
--Possible room for optimization. Will revisit in Beta.
+-Possible room for optimization and/or cleanliness. Will revisit in Beta.
 
 V0.3: COMPLETE
 -Shaker/Cocktail Sort

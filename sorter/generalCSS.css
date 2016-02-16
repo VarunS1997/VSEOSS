@@ -41,6 +41,7 @@ div#controlConsole{
 span#dataFeed{
     display: inline-block;
     width: 100%;
+    padding: 5px 10px;
 }
 
 div#pageInfo{

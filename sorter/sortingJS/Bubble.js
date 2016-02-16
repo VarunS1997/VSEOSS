@@ -1,7 +1,7 @@
 var BubbleSort = function () {
     this.done = false;
 
-    this.edge = size - 1;
+    this.edge = dataSize - 1;
     this.phase = 1;
 
     //assumed that n1 == 0 && n2 == 1 as per init
