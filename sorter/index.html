@@ -30,8 +30,8 @@
                 <input type="radio" name="sort" onclick="changeAlgorithm('quick')">Quick Sort<br/>
                 <input type="radio" name="sort" onclick="changeAlgorithm('Heap')" checked="checked">Heap Sort<br/>
 
-                <br/>Speed:</br>
-                <input type="number" min="0" oninput="speed = parseInt(this.value)"/>
+                <br/>Speed (ms):</br>
+                <input id="speedInput" type="number" min="0" oninput="speed = parseInt(this.value)"/>
             </span>
             <div id="pageInfo" class="wrapper" style="visibility: visible">
                 Sorter<br />

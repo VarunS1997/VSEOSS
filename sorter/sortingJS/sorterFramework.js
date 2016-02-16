@@ -3,7 +3,7 @@
 //
 var timer;
 var time; //when to continue 
-var speed = 0;
+var speed = 10;
 var paused = true; //not ready yet
 
 var dataSize = 100;
@@ -24,6 +24,7 @@ function init() {
     n1 = 0;
     n2 = 1;
     auxn = -1;
+    document.getElementById("speedInput").setAttribute("value", speed);
 
     if (timer) {
         endTimer();
