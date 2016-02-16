@@ -1,5 +1,5 @@
 <?php
-
+    
 ?>
 
 <!DOCTYPE html>
@@ -7,10 +7,14 @@
     <head>
         <meta charset="utf-8" />
         <title>VSEOSS Gateway</title>
+        <link rel="stylesheet" type="text/css" href="generalCSS.css" />
     </head>
     <body>
-        <a href="phySim">PhySim</a>
-        <a href="sorter">Sorter</a>
+        <div id="basicNav">
+            <a href="phySim">PhySim</a><br />
+            <a href="sorter">Sorter</a><br />
+            <a href="https://github.com/VarunS1997/VSEOSS">Github Repository</a>
+        </div>
     </body>
 </html>
  
