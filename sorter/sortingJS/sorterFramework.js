@@ -30,7 +30,7 @@ function init() {
     auxn = -1;
 
     document.getElementById("speedInput").setAttribute("value", speed);
-    //document.getElementById("sizeInput").setAttribute("value", dataSize);
+    document.getElementById("sizeInput").setAttribute("value", dataSize);
 
     //this order because each of these inits needs the previous done
     initDisplay();
@@ -74,6 +74,7 @@ function init() {
         for (var i = 0; i < data.length * 2; i++) {
             var x = Math.floor(Math.random() * dataSize);
             var y = Math.floor(Math.random() * dataSize);
+            console.log("random swap: " + x + " | " + y);
             swap(x, y);
         }
     }
