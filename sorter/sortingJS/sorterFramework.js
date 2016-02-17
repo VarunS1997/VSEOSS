@@ -20,6 +20,10 @@ var sort = function () { algorithm.takeStep(); }; //reference pointer to algorit
 //initializations
 //
 function init() {
+    if (timer) {
+        endTimer();
+    }
+	
     paused = false;
     n1 = 0;
     n2 = 1;
@@ -27,10 +31,6 @@ function init() {
 
     document.getElementById("speedInput").setAttribute("value", speed);
     document.getElementById("sizeInput").setAttribute("value", dataSize);
-
-    if (timer) {
-        endTimer();
-    }
 
     //this order because each of these inits needs the previous done
     initDisplay();
