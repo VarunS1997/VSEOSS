@@ -74,7 +74,6 @@ function init() {
         for (var i = 0; i < data.length * 2; i++) {
             var x = Math.floor(Math.random() * dataSize);
             var y = Math.floor(Math.random() * dataSize);
-            console.log("random swap: " + x + " | " + y);
             swap(x, y);
         }
     }
