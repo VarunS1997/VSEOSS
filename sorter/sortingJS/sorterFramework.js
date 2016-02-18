@@ -10,7 +10,7 @@ var paused = true; //not ready yet
 var fillBoxes = false;
 var randomness = 1;
 
-var dataSize = 10;
+var dataSize = 100;
 var data; //intended to be "linked" to a visual data representation
 
 var n1; //primary node pointer
