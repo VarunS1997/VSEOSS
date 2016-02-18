@@ -11,6 +11,7 @@
 
         <!--SCRIPTING-->
         <script src="sortingJS/Insert.js"></script>
+        <script src="sortingJS/Selection.js"></script>
         <script src="sortingJS/Bubble.js"></script>
         <script src="sortingJS/Cocktail.js"></script>
         <script src="sortingJS/Quick.js"></script>
@@ -25,12 +26,13 @@
         <div id="controlConsole">
             <span id="dataFeed">
                 <input type="radio" name="sort" onclick="changeAlgorithm('insertion')">Insertion Sort<br/>
+                <input type="radio" name="sort" onclick="changeAlgorithm('selection')">Selection Sort<br/>
                 <input type="radio" name="sort" onclick="changeAlgorithm('bubble')">Bubble Sort<br/>
                 <input type="radio" name="sort" onclick="changeAlgorithm('cocktail')">Cocktail/Shaker Sort<br/>
-                <input type="radio" name="sort" onclick="changeAlgorithm('quick')">Quick Sort<br/>
-                <input type="radio" name="sort" onclick="changeAlgorithm('Heap')" checked="checked">Heap Sort<br/>
+                <input type="radio" name="sort" onclick="changeAlgorithm('quick')" checked="checked">Quick Sort<br/>
+                <input type="radio" name="sort" onclick="changeAlgorithm('Heap')">Heap Sort<br/>
                 <br/>
-                Speed (ms):</br>
+                Time between Steps (ms):</br>
                 <input id="speedInput" type="number" min="0" oninput="speed = parseInt(this.value)"/>
                 <br/>
                 <br/>

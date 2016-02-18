@@ -11,4 +11,4 @@ A visualizer for basic computer science sorting algorithms.  Version history txt
 
 Important details of the projects implementation include:  
 -Each conceptual algorithm and/or data structure is contained in its own JS file. This is modeled after the Java programming language as it is considered a relatively simple and easy method of seperating different concepts, even for beginners.  
--Furthermore, the code found in the JS files is not reflective of a true, practical method of writing these algorithms. Instead, they are optimized for this specific enviroment of seperation between each step. Essentially, they are all the same in terms of function names. The primary differences rise in function bodies.
+-Furthermore, the code found in the JS files is not reflective of a true, practical method of writing these algorithms. Instead, they are optimized for this specific enviroment intended to seperate each step. Essentially, they are all the same in terms of function names. The primary differences rise in function bodies.

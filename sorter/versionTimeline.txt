@@ -1,14 +1,17 @@
 ===========
 =  Alpha  =
 ===========
-V0.8:
--Customization options
+V0.9:
+-Merge Sort
 
-V0.7:
+V0.8:
 -Finalized UI layout
 
+V0.7:
+-Customization options
+
 V0.6: IN PROGRESS
--Merge Sort
+-Selection Sort
 
 V0.5: COMPLETE
 -Heap Sort

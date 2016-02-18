@@ -20,8 +20,6 @@ InsertionSort.prototype.takeStep = function () {
     } else if (this.phase == 1) {
         this.calculateSwap();
         this.phase = 0;
-    } else {
-        this.phase = 0;
     }
 };
 

@@ -3,7 +3,7 @@
 //
 var timer;
 var time; //when to continue 
-var speed = 10;
+var speed = 10000;
 var paused = true; //not ready yet
 
 var dataSize = 100;
@@ -13,7 +13,7 @@ var n1; //primary node pointer
 var n2; //secondary node pointer
 var auxn; //auxillary node pointer
 
-var algorithm = new HeapSort(); //set to sorting algorithm's class 
+var algorithm = new QuickSort(); //set to sorting algorithm's class 
 var sort = function () { algorithm.takeStep(); }; //reference pointer to algorithm stepper 
 
 //
@@ -47,16 +47,21 @@ function init() {
         displayHTML = "";
 
         for (var i = 0; i < dataSize; i++) {
-            //both of these in percents
+            //all of these in percents
             var boxHeight = ((i + 1) * 100 / dataSize) - .5;
-            var boxWidth = (100 / dataSize);
+            var borderWidth = .2;
+            var totalWidth = (100 / dataSize);
 
-            displayHTML += "<rect width='" + boxWidth + "%' ";
+            if(boxHeight < 0) {
+                boxHeight = 0;
+            }
+
+            displayHTML += "<rect width='" + (totalWidth - borderWidth/2) + "%' ";
             displayHTML += "height='" + boxHeight + "%' ";
             displayHTML += "style='fill:none; ";
             displayHTML += "stroke: rgba(125, 200, 255, 1); ";
-            displayHTML += "stroke-width: "+ (3 - Math.floor(dataSize/150)) + "px' ";
-            displayHTML += "x='" + (i * boxWidth) + "%' ";
+            displayHTML += "stroke-width: "+ borderWidth + "%' ";
+            displayHTML += "x='" + (i * totalWidth) + "%' ";
             displayHTML += "y='" + (100 - boxHeight) + "%'/>";
         }
 
@@ -92,7 +97,7 @@ function init() {
 
                 time = new Date().getTime() + speed;
             }
-        }, 10)
+        }, 0)
     }
 
     function endTimer() {
@@ -182,6 +187,10 @@ function changeAlgorithm(str) {
         paused = true;
         algorithm = new HeapSort();
         init();
+    } else if(str == "selection" && !(algorithm instanceof SelectionSort)){
+        paused = true;
+        algorithm = new SelectionSort();
+        init();
     }
 }
 
@@ -193,6 +202,10 @@ function changeSize(n){
     paused = true;
     dataSize = n;
 
+    reinit();
+}
+
+function reinit(){
     if (algorithm instanceof InsertionSort) {
         algorithm = new InsertionSort();
         init();
@@ -208,5 +221,15 @@ function changeSize(n){
     } else if (algorithm instanceof HeapSort) {
         algorithm = new HeapSort();
         init();
+    } else if(algorithm instanceof SelectionSort){
+        algorithm = new SelectionSort();
+        init();
     }
+}
+
+function forceStep(){
+    paused = true;
+    algorithm.takeStep();
+    time = new Date().getTime() + speed;
+    paused = false;
 }
