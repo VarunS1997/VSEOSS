@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>VSEOSS | Sorter</title>
-        <!--ALPHA BUILD V0.5-->
+        <!--ALPHA BUILD V0.7-->
 
         <!--CSS/FONT-->
         <link rel="stylesheet" type="text/css" href="generalCSS.css" />
@@ -31,6 +31,7 @@
                 <input type="radio" name="sort" onclick="changeAlgorithm('cocktail')">Cocktail/Shaker Sort<br/>
                 <input type="radio" name="sort" onclick="changeAlgorithm('quick')" checked="checked">Quick Sort<br/>
                 <input type="radio" name="sort" onclick="changeAlgorithm('Heap')">Heap Sort<br/>
+                <a href="https://en.wikipedia.org/wiki/Merge_sort" target="_blank">Merge Sort not yet available</a><br/>
                 <br/>
                 Time between Steps (ms):</br>
                 <input id="speedInput" type="number" min="0" oninput="speed = parseInt(this.value)"/>
@@ -38,12 +39,24 @@
                 <br/>
                 Number of Elements:</br>
                 <input id="sizeInput" type="number" min="0" onchange="changeSize(parseInt(this.value))"/>
+                <br/>
+                <br/>
+                <input type="checkbox" onchange="setFill(this.checked)"/>Filled Boxes
+                <br/>
+                <br/>
+                Initial Randomness (%):<br/>
+                <input id="randomnessInput" type="number" min="0" max="100" oninput="randomness = parseInt(this.value)/100"/>
+                <br/>
+                <br/>
+                <a id="resetButton" class="button" onmousedown="reinit()">Reset</a>
+                <a id="pausePlayButton" class="button" onmousedown="pausePlay()">Pause</a>
+                <a id="stepButton" class="button" onmousedown="forceStep()">Step</a>
             </span>
             <div id="pageInfo" class="wrapper" style="visibility: visible">
                 Sorter<br />
                 <a href="../">VSEOSS</a> <br />
                 <a href="https://github.com/VarunS1997/VSEOSS" target="_blank">Github Repository</a><br />
-                ALPHA V0.5
+                ALPHA V0.7
             </div>
         </div>
     </body>

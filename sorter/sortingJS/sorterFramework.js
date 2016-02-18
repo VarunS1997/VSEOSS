@@ -3,10 +3,14 @@
 //
 var timer;
 var time; //when to continue 
-var speed = 10000;
+var speed = 100;
+
 var paused = true; //not ready yet
 
-var dataSize = 100;
+var fillBoxes = false;
+var randomness = 1;
+
+var dataSize = 10;
 var data; //intended to be "linked" to a visual data representation
 
 var n1; //primary node pointer
@@ -14,7 +18,14 @@ var n2; //secondary node pointer
 var auxn; //auxillary node pointer
 
 var algorithm = new QuickSort(); //set to sorting algorithm's class 
-var sort = function () { algorithm.takeStep(); }; //reference pointer to algorithm stepper 
+var sort = function () { algorithm.takeStep(); }; //reference pointer to algorithm stepper
+
+var COLORS = {
+    BLUE: "rgb(125, 200, 255)",
+    RED: "rgb(255, 75, 75)",
+    GREEN: "rgb(75, 255, 75)",
+    YELLOW: "rgb(255, 255, 75)"
+};
 
 //
 //initializations
@@ -23,13 +34,14 @@ function init() {
     if (timer) {
         endTimer();
     }
-	
+
     paused = false;
     n1 = 0;
     n2 = 1;
     auxn = -1;
 
     document.getElementById("speedInput").setAttribute("value", speed);
+    document.getElementById("randomnessInput").setAttribute("value", randomness * 100);
     document.getElementById("sizeInput").setAttribute("value", dataSize);
 
     //this order because each of these inits needs the previous done
@@ -48,19 +60,21 @@ function init() {
 
         for (var i = 0; i < dataSize; i++) {
             //all of these in percents
-            var boxHeight = ((i + 1) * 100 / dataSize) - .5;
-            var borderWidth = .2;
+            var borderWidth = dataSize >= 1000 ? (dataSize >= 10000 ? .05 : .1) : .2;
             var totalWidth = (100 / dataSize);
 
-            if(boxHeight < 0) {
+            var boxHeight = ((i + 1) * 100 / dataSize) - .5;
+            var boxWidth = totalWidth - borderWidth / 2;
+
+            if (boxHeight < 0) {
                 boxHeight = 0;
             }
 
-            displayHTML += "<rect width='" + (totalWidth - borderWidth/2) + "%' ";
+            displayHTML += "<rect width='" + ((boxWidth <= 0) ? borderWidth : boxWidth) + "%' ";
             displayHTML += "height='" + boxHeight + "%' ";
             displayHTML += "style='fill:none; ";
-            displayHTML += "stroke: rgba(125, 200, 255, 1); ";
-            displayHTML += "stroke-width: "+ borderWidth + "%' ";
+            displayHTML += "stroke: " + COLORS.BLUE + "; ";
+            displayHTML += "stroke-width: " + borderWidth + "%' ";
             displayHTML += "x='" + (i * totalWidth) + "%' ";
             displayHTML += "y='" + (100 - boxHeight) + "%'/>";
         }
@@ -76,10 +90,12 @@ function init() {
         }
 
         //randomize
-        for (var i = 0; i < data.length * 2; i++) {
-            var x = Math.floor(Math.random() * dataSize);
+        for (var i = 0; i < data.length; i++) {
+            if (isNaN(randomness) || Math.random() > randomness) {
+                continue;
+            }
             var y = Math.floor(Math.random() * dataSize);
-            swap(x, y);
+            swap(i, y);
         }
     }
 
@@ -108,12 +124,12 @@ function init() {
 //
 //important universal methods
 //
-function isLegalIndex(n){
+function isLegalIndex(n) {
     return (n <= dataSize - 1) && (n >= 0);
 }
 
 function swap(x, y) {
-    if(x == y){
+    if (x == y) {
         return;
     }
 
@@ -131,40 +147,64 @@ function swap(x, y) {
 function modifyPrimaries(n1Mod, n2Mod) {
     svgE = document.getElementById("dataDisplay").childNodes;
     if (isLegalIndex(n1)) {
-        svgE[data[n1] - 1].style.stroke = "rgba(125, 200, 255, 1)";
+        svgE[data[n1] - 1].style.stroke = COLORS.BLUE;
+
+        if (fillBoxes) {
+            svgE[data[n1] - 1].style.fill = COLORS.BLUE;
+        }
     }
     if (isLegalIndex(n2)) {
-        svgE[data[n2] - 1].style.stroke = "rgba(125, 200, 255, 1)";
+        svgE[data[n2] - 1].style.stroke = COLORS.BLUE;
+
+        if (fillBoxes) {
+            svgE[data[n2] - 1].style.fill = COLORS.BLUE;
+        }
     }
 
     n1 = n1 + n1Mod;
     n2 = n2 + n2Mod;
-    if(isLegalIndex(n1)){
-        svgE[data[n1] - 1].style.stroke = "rgba(255, 75, 75, 1)";   
+
+    if (isLegalIndex(n1)) {
+        svgE[data[n1] - 1].style.stroke = COLORS.RED;
+
+        if (fillBoxes) {
+            svgE[data[n1] - 1].style.fill = COLORS.RED;
+        }
     }
 
-    if(isLegalIndex(n2)){
-        svgE[data[n2] - 1].style.stroke = "rgba(75, 255, 75, 1)";   
+    if (isLegalIndex(n2)) {
+        svgE[data[n2] - 1].style.stroke = COLORS.GREEN;
+
+        if (fillBoxes) {
+            svgE[data[n2] - 1].style.fill = COLORS.GREEN;
+        }
     }
 }
 
-function modifyAux(auxMod){
+function modifyAux(auxMod) {
     svgE = document.getElementById("dataDisplay").childNodes;
-    if(isLegalIndex(auxn)){
-        svgE[data[auxn] - 1].style.stroke = "rgba(125, 200, 255, 1)";
+    if (isLegalIndex(auxn)) {
+        svgE[data[auxn] - 1].style.stroke = COLORS.BLUE;
+
+        if (fillBoxes) {
+            svgE[data[auxn] - 1].style.fill = COLORS.BLUE;
+        }
     }
 
     auxn = auxn + auxMod;
 
     if (isLegalIndex(auxn)) {
-        svgE[data[auxn] - 1].style.stroke = "rgba(255, 255, 75, 1)";
+        svgE[data[auxn] - 1].style.stroke = COLORS.YELLOW;
+
+        if (fillBoxes) {
+            svgE[data[auxn] - 1].style.fill = COLORS.YELLOW;
+        }
     }
 }
 
 //
 // User I/O Functions
 //
-
 function changeAlgorithm(str) {
     str = str.toLowerCase();
     if (str == "insertion" && !(algorithm instanceof InsertionSort)) {
@@ -187,15 +227,15 @@ function changeAlgorithm(str) {
         paused = true;
         algorithm = new HeapSort();
         init();
-    } else if(str == "selection" && !(algorithm instanceof SelectionSort)){
+    } else if (str == "selection" && !(algorithm instanceof SelectionSort)) {
         paused = true;
         algorithm = new SelectionSort();
         init();
     }
 }
 
-function changeSize(n){
-    if(n == dataSize){
+function changeSize(n) {
+    if (n == dataSize) {
         return;
     }
 
@@ -205,7 +245,7 @@ function changeSize(n){
     reinit();
 }
 
-function reinit(){
+function reinit() {
     if (algorithm instanceof InsertionSort) {
         algorithm = new InsertionSort();
         init();
@@ -221,15 +261,40 @@ function reinit(){
     } else if (algorithm instanceof HeapSort) {
         algorithm = new HeapSort();
         init();
-    } else if(algorithm instanceof SelectionSort){
+    } else if (algorithm instanceof SelectionSort) {
         algorithm = new SelectionSort();
         init();
     }
 }
 
-function forceStep(){
-    paused = true;
+function forceStep() {
     algorithm.takeStep();
     time = new Date().getTime() + speed;
-    paused = false;
+}
+
+function setFill(bool) {
+    if (fillBoxes != bool) {
+        paused = true;
+        fillBoxes = bool;
+
+        svgE = document.getElementById("dataDisplay").childNodes;
+        for (var i = 0; i < svgE.length; i++) {
+            if (i != data[n1] - 1 && i != data[n2] - 1 && i != data[auxn] - 1) {
+                svgE[i].style.fill = fillBoxes ? COLORS.BLUE : "none";
+            } else if (i == data[n1] - 1) {
+                svgE[data[n1] - 1].style.fill = fillBoxes ? COLORS.RED : "none";
+            } else if (i == data[n2] - 1) {
+                svgE[data[n2] - 1].style.fill = fillBoxes ? COLORS.GREEN : "none";
+            } else if (i == data[auxn] - 1) {
+                svgE[data[auxn] - 1].style.fill = fillBoxes ? COLORS.YELLOW : "none";
+            }
+        }
+
+        paused = false;
+    }
+}
+
+function pausePlay() {
+    paused = !paused;
+    document.getElementById("pausePlayButton").innerHTML = paused ? "Play" : "Pause";
 }

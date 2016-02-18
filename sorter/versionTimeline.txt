@@ -7,10 +7,19 @@ V0.9:
 V0.8:
 -Finalized UI layout
 
-V0.7:
--Customization options
+V0.7: IN PROGRESS
+-Customization options:
+    -Sorting Algorithm Selection
+    -Configurable time delay
+    -Box Fill
+    -Pause, Reset, and Step Buttons
+    -Element Count and Randomocity
+-Performance boosts:
+    -Higher Max Element Count
+    -"No Time Delay" allowed
+    -
 
-V0.6: IN PROGRESS
+V0.6: COMPLETE
 -Selection Sort
 
 V0.5: COMPLETE
