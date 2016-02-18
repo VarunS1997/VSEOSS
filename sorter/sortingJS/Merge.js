@@ -13,5 +13,10 @@ MergeSort.prototype.isDone = function () {
 };
 
 MergeSort.prototype.takeStep = function () {
-    //need to figure out how to make in-place
+    //need to figure out how to make in-place without loss of algorithm clarity
+    //potentially skip steps and show only completely sorted merges
+    //store working array "behind the scenes"/in local scope only
+    //and force working array pattern onto global data array
+    //show pointers to ends of merged lists
+    //else, two stacks, one per sublist
 };

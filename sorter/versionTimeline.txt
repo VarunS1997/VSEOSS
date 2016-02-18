@@ -5,19 +5,20 @@ V0.9:
 -Merge Sort
 
 V0.8:
--Finalized UI layout
+-Finalized UI layout:
+    -Including algorithm descriptions
+    -Explanations of color coding
 
 V0.7: IN PROGRESS
 -Customization options:
     -Sorting Algorithm Selection
     -Configurable time delay
-    -Box Fill
+    -Box Fill Option
     -Pause, Reset, and Step Buttons
     -Element Count and Randomocity
 -Performance boosts:
     -Higher Max Element Count
     -"No Time Delay" allowed
-    -
 
 V0.6: COMPLETE
 -Selection Sort
