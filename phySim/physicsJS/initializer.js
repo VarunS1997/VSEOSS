@@ -1,34 +1,54 @@
-//physics
-//make particle instances
-var svgE = document.getElementById("particleCanvas").childNodes;
+// simulation Physics
 
-var count = 4; //number of particles
-var particles = [count];
+// physics globals
+var particles;
+var ticker = setInterval(physics_timePass, 7); //7 ms because it increases animation fluidity
+var ready = false; //ready to pass time?
 
-//create particles and apply initial conditions
-for (var i = 0; i < count; i++) {
-    var particle1 = new Particle(1, 0, 0, svgE[1 + 2 * i]); //1+2*i is formula for the "(i+1)th" rectangle
-    particle1.applyForce(0, -1);
-    particle1.setVelocity((Math.random() - .5) * 100, 0);
-    particles[i] = particle1;
+//UI globals
+var clock_angle_rads = Math.PI / 2; //angle of clock hand in radiants
+var clock_radius; //radius of clock
+var clock_hand; //clock hand
+
+var pausePlayer;
+
+function init(){
+    var svgE = document.getElementById("particleCanvas").childNodes;
+
+    particles = [svgE.length];
+
+    clock_hand = document.getElementById("clock");
+
+    pausePlayer = document.getElementById("pausePlay");
+    pausePlayer.addEventListener("click", clock_pausePlay);
+
+    //create particles and apply initial conditions
+    for (var i = 0; 1 + 2 * i < svgE.length; i++) {
+        if(svgE[1 + 2 * i].tagName.toLowerCase() === "circle"){
+            //1+2*i is formula for the "(i+1)th" circle
+            //we also tell the particles they start at the origin
+            var particle1 = new Particle(1, 0, 0, svgE[1 + 2 * i]);
+
+            particle1.setForce(0, -1);
+            particle1.setVelocity((Math.random() - .5) * 100, 100);
+
+            particles[i] = particle1;
+        } else{
+            continue;
+        }
+    }
+
+    clock_hand.onload = function () {
+        clock_hand = clock.contentDocument.getElementById("tick");
+        if (clock_radius == null) { //placed here to ensure clock is loaded correctly
+            ready = true;
+            clock_radius = 250;
+        }
+    };
 }
 
-//time-related
-var ticker = setInterval(timePass, 7); //7 ms because it increases animation fluidity
-var ready = false; //ready to pass time?
-var rad = Math.PI / 2; //angle of clock hand
-var radius; //radius of clock
-var clock = document.getElementById("clock"); //clock hand
-
-clock.onload = function () {
-    clock = clock.contentDocument.getElementById("tick");
-    if (radius == null) { //placed here to ensure clock is loaded correctly
-        ready = true;
-        radius = 250;
-    }
-};
-
-function timePass() {
+// physics functions
+function physics_timePass() {
     if (time && ready) {
         ready = false;
 
@@ -37,26 +57,34 @@ function timePass() {
             particles[i].next();
         }
 
-        //clock math
-        clock.setAttribute("x2", 255.5 + radius * Math.cos(rad));
-        clock.setAttribute("y2", 255 - radius * Math.sin(rad));
-
-        rad -= (Math.PI / 7200) * temporalScale;
+        clock_update();
 
         ready = true;
     }
 }
 
-function pausePlay() {
+function physics_toggleTime(){
+    time = !time;
+}
+
+// UI Functions
+function clock_update(){
+    //clock math
+    clock_hand.setAttribute("x2", 255.5 + clock_radius * Math.cos(clock_angle_rads));
+    clock_hand.setAttribute("y2", 255 - clock_radius * Math.sin(clock_angle_rads));
+
+    clock_hand.setAttribute("x1", 255.5 + clock_radius * Math.cos(clock_angle_rads)/3);
+    clock_hand.setAttribute("y1", 255 - clock_radius * Math.sin(clock_angle_rads)/3);
+
+    clock_angle_rads -= (Math.PI / 360) * temporalScale;
+}
+
+function clock_pausePlay() {
     if (time) {
         pausePlayer.setAttribute("src", "play.svg");
     } else {
         pausePlayer.setAttribute("src", "pause.svg");
     }
-    time = !time; //toggle time
+
+    physics_toggleTime();
 }
-
-//UI stuff
-var pausePlayer = document.getElementById("pausePlay");
-
-pausePlayer.addEventListener("click", pausePlay);
