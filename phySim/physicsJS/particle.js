@@ -1,5 +1,5 @@
 
-//all units in meters and seconds; we aren't barbarians after all
+// all units are imaginary
 var Particle = function (mass, xPos, yPos, visual) {
     this.visual = visual;
     this.mass = mass;
@@ -16,12 +16,12 @@ var Particle = function (mass, xPos, yPos, visual) {
     this.xPos = xPos;
     this.yPos = yPos;
 
-    this.elastic = 1.0;
+    this.elastic = 1;
 };
 
-Particle.prototype.applyForce = function (Fx, Fy) {
-    this.Fx = Fx + this.Fx;
-    this.Fy = Fy + this.Fy;
+Particle.prototype.setForce = function (Fx, Fy) {
+    this.Fx = Fx;
+    this.Fy = Fy;
 
     this.calculateAcc();
 };
@@ -43,13 +43,12 @@ Particle.prototype.calculateAcc = function () {
     }
 
     // F=ma -> a = F/m
-    //multiply by temporalScale squared to change seconds to some percentage of seconds
     this.accX = this.Fx / this.mass;
     this.accY = this.Fy / this.mass;
 };
 
-Particle.prototype.hasImpacted = function (x) {
-    return x < 0 || x > 100;
+Particle.prototype.isImpactingWall = function (x, v) {
+    return (x < 0 && v < 0) || (x > 100 && v > 0);
 };
 
 Particle.prototype.next = function () {
@@ -63,16 +62,16 @@ Particle.prototype.next = function () {
 
     this.calculateAcc();
 
-    //get location
+    //get location in percentage
     var cx = (50 + this.xPos / spacialScale);
     var cy = (50 - this.yPos / spacialScale);
 
-    if (this.hasImpacted(cx)) {
-        this.velX *= -1 * this.elastic;
+    if (this.isImpactingWall(cx, this.velX)) {
+        this.velX *= (-1) * this.elastic;
     }
 
-    if (this.hasImpacted(cy)) {
-        this.velY *= -1 * this.elastic;
+    if (this.isImpactingWall(cy, this.velY * -1)) { //multiply velocity by negative one due to down being positive
+        this.velY *= (-1) * this.elastic;
     }
 
     this.visual.setAttribute("cx", cx + "%");
