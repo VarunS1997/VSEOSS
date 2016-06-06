@@ -16,7 +16,8 @@ var Particle = function (mass, xPos, yPos, visual) {
     this.xPos = xPos;
     this.yPos = yPos;
 
-    this.elastic = 1;
+    this.cor = 1; // Coefficient of restitution
+    this.collision = null; // colliding particle
 };
 
 Particle.prototype.setForce = function (Fx, Fy) {
@@ -33,7 +34,7 @@ Particle.prototype.setVelocity = function (vX, vY) {
 
 Particle.prototype.setElasticity = function (E) {
     this.elastic = E;
-}
+};
 
 Particle.prototype.calculateAcc = function () {
     if (Math.sqrt(this.velX * this.velX + this.velY * this.velY) >= speedOfLight) {
@@ -51,7 +52,31 @@ Particle.prototype.isImpactingWall = function (x, v) {
     return (x < 0 && v < 0) || (x > 100 && v > 0);
 };
 
+Particle.prototype.colidedWith = function (part2){
+    var otherX = part2.xPos;
+    var otherVX = part2.velX;
+
+    var otherY = part2.yPos;
+    var otherVY = part2.velY;
+    //TODO
+};
+
 Particle.prototype.next = function () {
+    var cx = (50 + this.xPos / spacialScale);
+    var cy = (50 - this.yPos / spacialScale);
+
+    if(this.isImpactingWall(cy, this.velY * -1) || this.isImpactingWall(cx, this.velX)){ // wall collision is most important
+        if(this.isImpactingWall(cx, this.velX)){
+            this.velX *= (-1) * this.cor;
+        }
+
+        if(this.isImpactingWall(cy, this.velY * -1)){
+            this.velY *= (-1) * this.cor;
+        }
+    } else if(this.collided != null){ // projectile collision
+        //TODO
+    } // else no collision, no velocity modification needed
+
     // x = x0 + v0(T) + (a0/2)(T^2) --- where _0 means initial condition
     this.xPos = this.xPos + this.velX * temporalScale + (this.accX / 2) * temporalScale * temporalScale;
     this.yPos = this.yPos + this.velY * temporalScale + (this.accY / 2) * temporalScale * temporalScale;;
@@ -62,18 +87,7 @@ Particle.prototype.next = function () {
 
     this.calculateAcc();
 
-    //get location in percentage
-    var cx = (50 + this.xPos / spacialScale);
-    var cy = (50 - this.yPos / spacialScale);
-
-    if (this.isImpactingWall(cx, this.velX)) {
-        this.velX *= (-1) * this.elastic;
-    }
-
-    if (this.isImpactingWall(cy, this.velY * -1)) { //multiply velocity by negative one due to down being positive
-        this.velY *= (-1) * this.elastic;
-    }
-
+    // update visuals
     this.visual.setAttribute("cx", cx + "%");
     this.visual.setAttribute("cy", cy + "%");
 };

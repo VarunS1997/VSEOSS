@@ -30,7 +30,7 @@ function init(){
             var particle1 = new Particle(1, 0, 0, svgE[1 + 2 * i]);
 
             particle1.setForce(0, -1);
-            particle1.setVelocity((Math.random() - .5) * 100, 100);
+            particle1.setVelocity((Math.random() - .5) * 100, 0);
 
             particles[i] = particle1;
         } else{
@@ -45,7 +45,7 @@ function init(){
             clock_radius = 250;
         }
     };
-}
+};
 
 // physics functions
 function physics_timePass() {
@@ -61,11 +61,11 @@ function physics_timePass() {
 
         ready = true;
     }
-}
+};
 
 function physics_toggleTime(){
     time = !time;
-}
+};
 
 // UI Functions
 function clock_update(){
@@ -77,7 +77,7 @@ function clock_update(){
     clock_hand.setAttribute("y1", 255 - clock_radius * Math.sin(clock_angle_rads)/3);
 
     clock_angle_rads -= (Math.PI / 360) * temporalScale;
-}
+};
 
 function clock_pausePlay() {
     if (time) {
@@ -87,4 +87,4 @@ function clock_pausePlay() {
     }
 
     physics_toggleTime();
-}
+};
