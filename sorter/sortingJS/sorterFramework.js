@@ -2,7 +2,7 @@
 //globals
 //
 var timer;
-var time; //when to continue 
+var time; //when to continue
 var speed = 100;
 
 var paused = true; //not ready yet
@@ -17,7 +17,7 @@ var n1; //primary node pointer
 var n2; //secondary node pointer
 var auxn; //auxillary node pointer
 
-var algorithm = new QuickSort(); //set to sorting algorithm's class 
+var algorithm = new QuickSort(); //set to sorting algorithm's class
 var sort = function () { algorithm.takeStep(); }; //reference pointer to algorithm stepper
 
 var COLORS = {
@@ -60,10 +60,10 @@ function init() {
 
         for (var i = 0; i < dataSize; i++) {
             //all of these in percents
-            var borderWidth = dataSize >= 1000 ? (dataSize >= 10000 ? .05 : .1) : .2;
+            var borderWidth = dataSize >= 1000 ? (dataSize >= 10000 ? 0.05 : 0.1) : 0.2;
             var totalWidth = (100 / dataSize);
 
-            var boxHeight = ((i + 1) * 100 / dataSize) - .5;
+            var boxHeight = ((i + 1) * 100 / dataSize) - 0.5;
             var boxWidth = totalWidth - borderWidth / 2;
 
             if (boxHeight < 0) {
