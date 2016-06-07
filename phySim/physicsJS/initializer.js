@@ -15,7 +15,11 @@ var clock_hand; //clock hand
 
 var pausePlayer;
 
+console.log("Loaded Physics Engine");
+
 function init(){
+    console.log("Initializing Physics Engine...");
+
     setTimeout(function(){ physics_toggleCollisions(); }, 1000 * 1/temporalScale);
     var svgE = document.getElementById("particleCanvas").childNodes;
 
@@ -34,7 +38,8 @@ function init(){
             //we also tell the particles they start at the origin
             var particle1 = new Particle(1, 0, 0, parseInt(svgE[1 + 2 * i].getAttribute("r")), svgE[1 + 2 * i]);
 
-            particle1.setForce(0, -1);
+            particle1.setForce(0, -1 * particle1.mass);
+            particle1.setCOR(1);
             particle1.setVelocity((Math.random() - .5) * 100, (Math.random() - .5) * 10);
 
             particles[i] = particle1;
@@ -50,6 +55,9 @@ function init(){
             clock_radius = 250;
         }
     };
+
+    console.log("Physics Engine Ready");
+    console.log("Collisions: " + (collisions ? "ON" : "OFF") + " --- Time: " + (time ? "ON" : "OFF"));
 };
 
 // physics functions
@@ -57,7 +65,7 @@ function physics_timePass() {
     if (time && ready) {
         ready = false;
 
-        //cause passage of time
+        //check collisions
         for (var i = 0; i < particles.length; i++) {
             for(var j = i+1; j < particles.length; j++){
                 if(collisions && particles[i].isColliding(particles[j])){
@@ -65,8 +73,11 @@ function physics_timePass() {
                     particles[j].collidedPart = particles[i].clone();
                 }
             }
+        }
 
-            particles[i].next();
+        //cause passage of time
+        for(var i = 0; i < particles.length; i++){
+            particles[i].experienceTime();
         }
 
         clock_update();

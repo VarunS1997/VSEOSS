@@ -1,5 +1,6 @@
 
-// all units are imaginary
+// all units are hypothetical
+// spacial units are in percentage coordiantes. ex. (0%, 0%) is origin
 var Particle = function (mass, xPos, yPos, radius, visual) {
     this.visual = visual;
     this.radius = radius;
@@ -63,22 +64,20 @@ Particle.prototype.isImpactingWall = function (x, r, v) { //works for both walls
 };
 
 Particle.prototype.isColliding = function (part2){
-    var cx = (50 + this.xPos / spacialScale);
-    var cy = (50 - this.yPos / spacialScale);
+     // raw px coordinates
+    var dx = (this.xPos - part2.xPos) * worldX / (100 * spacialScale);
+    var dy = (this.yPos - part2.yPos) * worldY / (100 * spacialScale);
 
-    var rx = this.radius * spacialScale / worldX;
-    var ry = this.radius * spacialScale / worldY;
+    var dr = Math.sqrt(dx * dx + dy * dy);
 
-    var cx2 = (50 + part2.xPos / spacialScale);
-    var cy2 = (50 - part2.yPos / spacialScale);
-
-    var rx2 = part2.radius * spacialScale / worldX;
-    var ry2 = part2.radius * spacialScale / worldY;
-
-    return (Math.abs(cx - cx2) <= rx + rx2 && Math.abs(cy - cy2) <= ry + ry2);
+    return (dr <= this.radius + part2.radius);
 };
 
-Particle.prototype.collidedWith = function (m, vx, vy){
+Particle.prototype.collidedWith = function (part2){
+    var m = part2.mass;
+    var vx = part2.velX;
+    var vy = part2.velY;
+
     var sumM = this.mass + m;
 
     var otherPX = vx * m;
@@ -88,12 +87,12 @@ Particle.prototype.collidedWith = function (m, vx, vy){
     this.velY = (this.cor * m * (vy - this.velY) + this.mass * this.velY + otherPY) / sumM;
 };
 
-Particle.prototype.next = function () {
+Particle.prototype.experienceTime = function () {
     var cx = (50 + this.xPos / spacialScale);
     var cy = (50 - this.yPos / spacialScale);
 
-    var rx = this.radius * spacialScale / worldX;
-    var ry = this.radius * spacialScale / worldY;
+    var rx = this.radius / (worldX * spacialScale); // convert radius to percentages
+    var ry = this.radius / (worldY * spacialScale); // convert radius to percentages
 
     if(this.isImpactingWall(cy, ry, this.velY * -1) || this.isImpactingWall(cx, rx ,this.velX)){ // wall collision is most important
         if(this.isImpactingWall(cx, rx, this.velX)){
@@ -104,7 +103,7 @@ Particle.prototype.next = function () {
             this.velY *= (-1) * this.cor;
         }
     } else if(this.collidedPart != null){ // projectile collision
-        this.collidedWith(this.collidedPart.mass, this.collidedPart.velX, this.collidedPart.velY);
+        this.collidedWith(this.collidedPart);
         this.collidedPart = null;
     } // else no collision, no velocity modification needed
     // x = x0 + v0(T) + (a0/2)(T^2) --- where _0 means initial condition
