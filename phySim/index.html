@@ -10,7 +10,7 @@
             // configration
             var time = true; //is time passing?
             var spacialScale = 100; //100 is normal
-            var temporalScale = 1; //% of real time
+            var temporalScale = 1; //1 is normal
 
             // constants
             var speedOfLight = 299792458; //source: google
@@ -22,7 +22,7 @@
         <link rel="stylesheet" type="text/css" href="generalCSS.css"/>
         <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
     </head>
-    <body onload="init()">
+    <body onload="init()" onresize="physics_updateSize()">
         <div id="controlConsole">
             <div class="wrapper" id="controlButtons">
                 <img id="pausePlay" src="pause.svg" alt="Failed to load image"/>
@@ -41,6 +41,18 @@
         <svg id="particleCanvas" class="canvas" xmlns:xlink="http://www.w3.org/1999/xlink">
             <circle cx="50%" cy="50%" r="5" fill="red"/>
             <circle cx="50%" cy="50%" r="5" fill="blue" />
+            <circle cx="50%" cy="50%" r="5" fill="green" />
+            <circle cx="50%" cy="50%" r="5" fill="orange" />
+            <circle cx="50%" cy="50%" r="5" fill="green" />
+            <circle cx="50%" cy="50%" r="5" fill="orange" />
+            <circle cx="50%" cy="50%" r="5" fill="green" />
+            <circle cx="50%" cy="50%" r="5" fill="orange" />
+            <circle cx="50%" cy="50%" r="5" fill="red"/>
+            <circle cx="50%" cy="50%" r="5" fill="blue" />
+            <circle cx="50%" cy="50%" r="5" fill="green" />
+            <circle cx="50%" cy="50%" r="5" fill="orange" />
+            <circle cx="50%" cy="50%" r="5" fill="green" />
+            <circle cx="50%" cy="50%" r="5" fill="orange" />
             <circle cx="50%" cy="50%" r="5" fill="green" />
             <circle cx="50%" cy="50%" r="5" fill="orange" />
         </svg>

@@ -4,6 +4,9 @@
 var particles;
 var ticker = setInterval(physics_timePass, 7); //7 ms because it increases animation fluidity
 var ready = false; //ready to pass time?
+var worldX; //size of world in X direction
+var worldY; //size of world in y direction
+var collisions = false;
 
 //UI globals
 var clock_angle_rads = Math.PI / 2; //angle of clock hand in radiants
@@ -13,24 +16,26 @@ var clock_hand; //clock hand
 var pausePlayer;
 
 function init(){
+    setTimeout(function(){ physics_toggleCollisions(); }, 1000 * 1/temporalScale);
     var svgE = document.getElementById("particleCanvas").childNodes;
 
     particles = [svgE.length];
-
     clock_hand = document.getElementById("clock");
-
     pausePlayer = document.getElementById("pausePlay");
+    worldX = document.getElementById("particleCanvas").clientWidth;
+    worldY = document.getElementById("particleCanvas").clientHeight;
+
     pausePlayer.addEventListener("click", clock_pausePlay);
 
     //create particles and apply initial conditions
     for (var i = 0; 1 + 2 * i < svgE.length; i++) {
-        if(svgE[1 + 2 * i].tagName.toLowerCase() === "circle"){
+        if(svgE[1 + 2 * i].tagName != null && svgE[1 + 2 * i].tagName.toLowerCase() === "circle"){
             //1+2*i is formula for the "(i+1)th" circle
             //we also tell the particles they start at the origin
-            var particle1 = new Particle(1, 0, 0, svgE[1 + 2 * i]);
+            var particle1 = new Particle(1, 0, 0, parseInt(svgE[1 + 2 * i].getAttribute("r")), svgE[1 + 2 * i]);
 
             particle1.setForce(0, -1);
-            particle1.setVelocity((Math.random() - .5) * 100, 0);
+            particle1.setVelocity((Math.random() - .5) * 100, (Math.random() - .5) * 10);
 
             particles[i] = particle1;
         } else{
@@ -54,6 +59,13 @@ function physics_timePass() {
 
         //cause passage of time
         for (var i = 0; i < particles.length; i++) {
+            for(var j = i+1; j < particles.length; j++){
+                if(collisions && particles[i].isColliding(particles[j])){
+                    particles[i].collidedPart = particles[j].clone();
+                    particles[j].collidedPart = particles[i].clone();
+                }
+            }
+
             particles[i].next();
         }
 
@@ -65,8 +77,18 @@ function physics_timePass() {
 
 function physics_toggleTime(){
     time = !time;
+    console.log("Time: " + (time ? "ON" : "OFF"));
 };
 
+function physics_toggleCollisions(){
+    collisions = !collisions;
+    console.log("Collisions: " + (collisions ? "ON" : "OFF"));
+}
+
+function physics_updateSize(){
+    worldX = document.getElementById("particleCanvas").clientWidth;
+    worldY = document.getElementById("particleCanvas").clientHeight;
+};
 // UI Functions
 function clock_update(){
     //clock math
