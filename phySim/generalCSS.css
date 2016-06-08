@@ -81,3 +81,25 @@ object, img#pausePlay{
     z-index: 1;
     height: 100%;
 }
+
+/* Other Generalaties */
+div.ui-display{
+    padding: 3px;
+    text-align: center;
+    border-width: 1px;
+    border-style: solid none;
+    border-color: #cccccc;
+}
+
+span.text-feed{
+    box-sizing: border-box;
+    display: inline-block;
+    max-width: 50%;
+    min-width: 50%;
+    height: 100%;
+    overflow: hidden;
+    vertical-align: middle;
+    border-width: 1px;
+    border-color: #cccccc;
+    border-style: solid;
+}
