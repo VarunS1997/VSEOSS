@@ -53,9 +53,9 @@ function physics_init(){
 
             var particle1 = new Particle(1, xPos, yPos, radius, svgE[1 + 2 * i]);
 
-            particle1.setForce(0, -0 * particle1.mass);
+            particle1.setForce(0, -1 * particle1.mass);
             particle1.setCOR(1);
-            particle1.setVelocity((Math.random() - .5) * 100, (Math.random() - .5) * 10);
+            particle1.setVelocity(0, 0);
 
             particles[i] = particle1;
         } else{
