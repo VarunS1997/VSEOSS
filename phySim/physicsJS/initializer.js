@@ -1,10 +1,10 @@
 // simulation Physics
-
+ // TODO: See if you can make particles not "phase".
 // physics globals
 var particles;
 var totalKE = 0;
 
-var ticker = setInterval(physics_timePass, 7); //7 ms because it increases animation fluidity
+var ticker = setInterval(physics_timePass, 0); //7 ms because it increases animation fluidity
 var ready = false; //ready to pass time?
 
 var worldX; //size of world in X direction

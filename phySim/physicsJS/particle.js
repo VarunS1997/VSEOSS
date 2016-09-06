@@ -51,6 +51,7 @@ Particle.prototype.calculateAcc = function () {
     if (Math.sqrt(this.velX * this.velX + this.velY * this.velY) >= speedOfLight) {
         this.accX = 0;
         this.accY = 0;
+        console.log("Lightspeed detected, reducing acceleration to 0");
         return;
     }
 
@@ -60,7 +61,13 @@ Particle.prototype.calculateAcc = function () {
 };
 
 Particle.prototype.isImpactingWall = function (x, r, v) { //works for both walls depending on input directions
-    return ((x - r) < 0 && v < 0) || ((x + r) > 100 && v > 0);
+    if(x - r <= 0 && v < 0){
+        return -1;
+    } else if(x + r >= 100 && v > 0){
+        return 1;
+    } else {
+        return 0;
+    }
 };
 
 Particle.prototype.isColliding = function (part2){
@@ -94,13 +101,28 @@ Particle.prototype.experienceTime = function () {
     var rx = this.radius / (worldX * spacialScale); // convert radius to percentages
     var ry = this.radius / (worldY * spacialScale); // convert radius to percentages
 
-    if(this.isImpactingWall(cy, ry, this.velY * -1) || this.isImpactingWall(cx, rx ,this.velX)){ // wall collision is most important
-        if(this.isImpactingWall(cx, rx, this.velX)){
+    var yCollision = this.isImpactingWall(cy, ry, this.velY * -1);
+    var xCollision = this.isImpactingWall(cx, rx ,this.velX);
+
+    if(xCollision != 0 || yCollision != 0){ // wall collision is most important
+        if(xCollision != 0){
             this.velX *= (-1) * this.cor;
+
+            if(this.xCollision < 0){
+                this.xPos = -50 * spacialScale + rx;
+            } else{
+                this.xPos = 50 * spacialScale - rx;
+            }
         }
 
-        if(this.isImpactingWall(cy, ry, this.velY * -1)){
+        if(yCollision != 0){
             this.velY *= (-1) * this.cor;
+
+            if(this.yCollision < 0){
+                this.yPos = 50 * spacialScale - ry;
+            } else{
+                this.yPos = -50 * spacialScale + ry;
+            }
         }
     } else if(this.collidedPart != null){ // projectile collision
         this.collidedWith(this.collidedPart);

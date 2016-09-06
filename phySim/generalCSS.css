@@ -94,9 +94,10 @@ div.ui-display{
 span.text-feed{
     box-sizing: border-box;
     display: inline-block;
-    max-width: 50%;
-    min-width: 50%;
+    width: 50%;
     height: 100%;
+    text-align: right;
+    letter-spacing: 1px;
     overflow: hidden;
     vertical-align: middle;
     border-width: 1px;

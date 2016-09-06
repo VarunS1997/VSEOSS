@@ -234,8 +234,16 @@ function changeAlgorithm(str) {
     }
 }
 
+function changeSpeed(n){
+    if(n == "" || n <= 0){
+        speed = 0;
+    } else{
+        speed = parseInt(n);
+    }
+}
+
 function changeSize(n) {
-    if (n == dataSize) {
+    if (n == dataSize || n == "") {
         return;
     }
 

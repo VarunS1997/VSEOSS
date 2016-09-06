@@ -19,44 +19,58 @@
         <script src="sortingJS/Merge.js"></script>
 
         <script src="sortingJS/Stack.js"></script>
+
         <script src="sortingJS/sorterFramework.js"></script>
     </head>
     <body onload="init();">
-        <svg id="dataDisplay"></svg>
-        <div id="controlConsole">
-            <span id="dataFeed">
-                <input type="radio" name="sort" onclick="changeAlgorithm('insertion')">Insertion Sort<br/>
-                <input type="radio" name="sort" onclick="changeAlgorithm('selection')">Selection Sort<br/>
-                <input type="radio" name="sort" onclick="changeAlgorithm('bubble')">Bubble Sort<br/>
-                <input type="radio" name="sort" onclick="changeAlgorithm('cocktail')">Cocktail/Shaker Sort<br/>
-                <input type="radio" name="sort" onclick="changeAlgorithm('quick')" checked="checked">Quick Sort<br/>
-                <input type="radio" name="sort" onclick="changeAlgorithm('Heap')">Heap Sort<br/>
-                <a href="https://en.wikipedia.org/wiki/Merge_sort" target="_blank">Merge Sort not yet available</a><br/>
-                <br/>
-                Time between Steps (ms):</br>
-                <input id="speedInput" type="number" min="0" oninput="speed = parseInt(this.value)"/>
-                <br/>
-                <br/>
-                Number of Elements:</br>
-                <input id="sizeInput" type="number" min="0" onchange="changeSize(parseInt(this.value))"/>
-                <br/>
-                <br/>
-                <input type="checkbox" onchange="setFill(this.checked)"/>Filled Boxes
-                <br/>
-                <br/>
-                Initial Randomness (%):<br/>
-                <input id="randomnessInput" type="number" min="0" max="100" oninput="randomness = parseInt(this.value)/100"/>
-                <br/>
-                <br/>
-                <a id="resetButton" class="button" onmousedown="reinit()">Reset</a>
-                <a id="pausePlayButton" class="button" onmousedown="pausePlay()">Pause</a>
-                <a id="stepButton" class="button" onmousedown="forceStep()">Step</a>
-            </span>
-            <div id="pageInfo" class="wrapper" style="visibility: visible">
-                Sorter<br />
-                <a href="../">VSEOSS</a> <br />
-                <a href="https://github.com/VarunS1997/VSEOSS" target="_blank">Github Repository</a><br />
-                ALPHA V0.7
+        <div id="informationalFeedsWrapper" class="wrapper">
+            <div id="descriptionPanel" style="display: block;">
+                <span id="informationTabs">
+
+                </span>
+                <span id="visibleInformation">
+                    <p>One of the more complex sorting algorithms, Quick Sort is commonly used across a variety of platforms and purposes for it's incredible asymptotic efficiency in the average case. Furthermore, it is an in-place sorting algorithm, requiring little to no additional memory to perform efficiently. It is often implemented in a recursive fashion, yet, the call stack remains relatively small due to the expansion of only one partitition at a time. </p>
+                    <p>In essence, Quick Sort operates on the basis of a pivot and partitions. Using a (sometimes) random initial value as a pivot, Quick sort compares all values in the data set to the pivot, switching low values near the pivot with high values far from the pivot. When the high end node and the low end node intersect, this process of partitioning is complete. The pivot is swapped with the first node of the high side partition and the data array is essentially split into two equal pieces, the low and high partitions. This process is then repeated for each partition until partitions of one or fewer elements is created.</p>
+                    <p>Optimizations to create more efficient Quick Sorts often implement multithreading and/or the usage of other sorting algorithms below a certain threshold of elements, due to Quick Sort's lower efficiency at lower quantities of data. Furthermore, methods of choosing a more ideal pivot, such as the ninther or median of three methods, can further optimize Quick Sort's runtime. Advanced implementations of Quick Sort also take advantage of modern CPU caches and the potential of multiple pivots in order to further increase runtime efficiency. </p>
+                </span>
+            </div>
+            <svg id="dataDisplay"></svg>
+        </div>
+        <div id="controlConsoleWrapper" class="wrapper">
+            <div id="controlConsole">
+                <span id="dataFeed">
+                    <input type="radio" name="sortingAlgorithm" onclick="changeAlgorithm('insertion')">Insertion Sort<br/>
+                    <input type="radio" name="sortingAlgorithm" onclick="changeAlgorithm('selection')">Selection Sort<br/>
+                    <input type="radio" name="sortingAlgorithm" onclick="changeAlgorithm('bubble')">Bubble Sort<br/>
+                    <input type="radio" name="sortingAlgorithm" onclick="changeAlgorithm('cocktail')">Cocktail/Shaker Sort<br/>
+                    <input type="radio" name="sortingAlgorithm" onclick="changeAlgorithm('quick')" checked="checked">Quick Sort<br/>
+                    <input type="radio" name="sortingAlgorithm" onclick="changeAlgorithm('Heap')">Heap Sort<br/>
+                    <a href="https://en.wikipedia.org/wiki/Merge_sort" target="_blank">Merge Sort not yet available</a><br/>
+                    <p>
+                        Time between Steps (ms):</br>
+                        <input id="speedInput" type="number" min="0" oninput="changeSpeed(this.value)"/>
+                    </p>
+                    <p>
+                        Number of Elements:</br>
+                        <input id="sizeInput" type="number" min="0" onchange="changeSize(parseInt(this.value))"/>
+                    </p>
+                    <p>
+                        Initial Randomness (%):<br/>
+                        <input id="randomnessInput" type="number" min="0" max="100" oninput="randomness = parseInt(this.value)/100"/>
+                    </p>
+                    <p>
+                        <input type="checkbox" onchange="setFill(this.checked)"/>Filled Boxes
+                    </p>
+                    <a id="resetButton" class="button" onmousedown="reinit()">Reset</a>
+                    <a id="pausePlayButton" class="button" onmousedown="pausePlay()">Pause</a>
+                    <a id="stepButton" class="button" onmousedown="forceStep()">Step</a>
+                </span>
+                <div id="pageInfo" class="wrapper" style="visibility: visible">
+                    Sorter<br />
+                    <a href="../">VSEOSS</a> <br />
+                    <a href="https://github.com/VarunS1997/VSEOSS" target="_blank">Github Repository</a><br />
+                    ALPHA V0.7
+                </div>
             </div>
         </div>
     </body>

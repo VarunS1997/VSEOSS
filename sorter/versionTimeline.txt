@@ -4,12 +4,12 @@
 V0.9:
 -Merge Sort
 
-V0.8:
+V0.8: IN PROGRESS
 -Finalized UI layout:
     -Including algorithm descriptions
     -Explanations of color coding
 
-V0.7: IN PROGRESS
+V0.7: COMPLETE
 -Customization options:
     -Sorting Algorithm Selection
     -Configurable time delay
